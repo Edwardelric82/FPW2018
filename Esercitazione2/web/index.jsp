@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -16,25 +18,9 @@ and open the template in the editor.
         
     </head>
     <body>
-        <header>
-            <img  id="logo" title="logo" alt="logo del sito" src="images/logo.jpeg">
-            <h1 id="maintitle">News dal mondo!</h1>
-        </header>
+        <jsp:include page="header.jsp" />
         <hr>
-        <nav>
-            <h3>Le pagine del sito</h3>
-            <div id="div-search">
-                <input type="text" id="search" name="search" value="Cerca..">
-            </div>
-      
-            <div id="div-nav">
-                <ul class="navbar">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="utente.html">Il tuo Profilo</a></li>
-                    <li><a href="signup.html">Registrati</a></li>
-                </ul>
-            </div>
-        </nav> 
+        <jsp:include page="navbar.jsp" />
         <article>
             <div class="left-box">
             
@@ -62,7 +48,13 @@ and open the template in the editor.
             </ol>
         </div>
         <div class="main-box">
-                Notizie aggiornate!!
+              <c:forEach var="news" items="${listaNews}">
+                  <div>
+                      <h3>${news.getTitolo()}</h3>
+                      <p>${news.getContent()}</p>
+                      <h5>${news.getCategoria()}</h5>
+                  </div>
+              </c:forEach>
         </div>
         </article>
         <footer>Sito realizzato da Sara Casti! PhD Student at University of Cagliari</footer>

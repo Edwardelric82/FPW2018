@@ -75,4 +75,9 @@ public class NotiziaFactory {
         }
         return listaForUser;
     }
+    
+    public ArrayList<Notizia> getAllNews()
+    {
+        return listaNews;
+    }
 }

@@ -1,9 +1,12 @@
+<%-- 
+    Document   : utente
+    Created on : 10-apr-2018, 11.18.57
+    Author     : Sary
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Il tuo profilo</title>
@@ -14,20 +17,9 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="style1.css" media="screen">
     </head>
     <body>
-        <header>       
-            <img id="logo" title="logo" alt="logo del sito" src="images/logo.jpeg">
-            <h1 id="maintitle">News dal mondo!</h1>
-        </header>
+        <jsp:include page="header.jsp" />
         <hr>
-        <nav>
-            <input id="search" type="text">
-            <h3>Le pagine del sito</h3>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="utente.html">Il tuo Profilo</a></li>
-                <li><a href="signup.html">Registrati</a></li>
-            </ul>
-        </nav> 
+        <jsp:include page="navbar.jsp" />
         <article>
         <div class="left-box">
             
