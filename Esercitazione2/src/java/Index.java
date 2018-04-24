@@ -4,18 +4,22 @@
  * and open the template in the editor.
  */
 
+import fpw.news.Notizia;
+import fpw.news.NotiziaFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Sary
  */
-public class utente extends HttpServlet {
+public class Index extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,7 +33,33 @@ public class utente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("utente.jsp").forward(request,response);
+        
+        //Controlla se l'utente è loggato
+        HttpSession session = request.getSession(false);
+
+        if (session == null) 
+        {
+            //Se non c'è ancora la sessione
+            request.setAttribute("isLogged", false);
+        }
+        else if (session.getAttribute("loggedIn") != null &&
+                 session.getAttribute("loggedIn").equals(true))
+        {
+            //loggedIn VALE true -> utente è loggato
+            request.setAttribute("isLogged", true);
+        }
+        else
+        {
+            request.setAttribute("isLogged", false);
+        }
+
+        //Recupera la lista di news e setta le variabili per la JSP
+        NotiziaFactory newsFactory = NotiziaFactory.getInstance();
+        ArrayList<Notizia> allNews = newsFactory.getAllNews();
+        request.setAttribute("listaNews", allNews);
+        
+        //Manda i dati alla JSP
+        request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

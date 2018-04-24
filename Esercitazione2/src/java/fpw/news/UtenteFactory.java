@@ -50,7 +50,7 @@ public class UtenteFactory {
         u3.setNome("Carla");
         u3.setCognome("Boi");
         u3.setEmail("boi@gmail.com");
-        u3.setPassword("faads666dsjkdfs");
+        u3.setPassword("prova");
         
         //inseriamo tutti gli utenti
         listaUtenti.add(u1);
@@ -69,6 +69,33 @@ public class UtenteFactory {
             }
         }
         return null;
+    }
+    
+    public Utente getUtenteByEmail(String email)
+    {
+        //Cerca l'utente con email uguale a quella passata come parametro
+        for(Utente user: listaUtenti)
+        {
+            if(user.getEmail().equals(email))
+            {
+                return user;
+            }
+        }
+        return null;
+    }
+    
+    public boolean login(String email, String password)
+    {
+                //Cerca l'utente con email uguale a quella passata come parametro
+        for(Utente user: listaUtenti)
+        {
+            //Cerca l'utente che abbia stessa email e stessa password
+            if(user.getEmail().equals(email) && user.getPassword().equals(password))
+            {
+                return true;
+            }
+        }
+        return false;
     }
     
     public ArrayList<Utente> getAllUsers()

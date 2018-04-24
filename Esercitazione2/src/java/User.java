@@ -1,24 +1,23 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import fpw.news.Notizia;
-import fpw.news.NotiziaFactory;
+import fpw.news.UtenteFactory;
+import fpw.news.Utente;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Sary
  */
-public class index extends HttpServlet {
+public class User extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,12 +31,47 @@ public class index extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        NotiziaFactory newsFactory = NotiziaFactory.getInstance();
-        ArrayList<Notizia> allNews = newsFactory.getAllNews();
-        request.setAttribute("listaNews", allNews);
+        HttpSession session = request.getSession(false);
         
-        request.getRequestDispatcher("index.jsp").forward(request,response);
+        request.setAttribute("isLogged", false);
+
+        if (session == null) 
+        {
+            //Se non c'è la sessione
+            request.setAttribute("isLogged", false);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        else if (session.getAttribute("loggedIn") != null &&
+                 !session.getAttribute("loggedIn").equals(true))
+        {
+            //loggedIn non vale true
+            request.setAttribute("isLogged", false);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        else if (session.getAttribute("loggedIn") == null)
+        {
+            //non c'è loggedIn
+            request.setAttribute("isLogged", false);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+
+
+        UtenteFactory user_factory = UtenteFactory.getInstance();
+
+        int idUtente = (int)session.getAttribute("userId");
+        Utente user = user_factory.getUtenteById(idUtente);
+
+        String name = user.getNome();
+        String surname = user.getCognome();
+        String email = user.getEmail();
+
+        request.setAttribute("name", name);
+        request.setAttribute("surname", surname);
+        request.setAttribute("email", email);
+        request.setAttribute("isLogged", true);
+
+            
+        request.getRequestDispatcher("utente.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

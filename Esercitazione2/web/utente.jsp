@@ -52,8 +52,8 @@
             <section>
                 <h4>Le tue informazioni personali</h4>
                 <ul>
-                    <li>Sara Casti</li>
-                    <li>sara.casti91@gmail.com</li>
+                    <li>${name} ${surname}</li>
+                    <li>${email}</li>
                     <li>PhD student Computer Science</li>
                 </ul>
             </section>
