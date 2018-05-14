@@ -23,7 +23,7 @@ public class NotiziaFactory {
         }
         return singleton;
     }
-    
+        
     private NotiziaFactory()
     {
         Notizia n1 = new Notizia();

@@ -6,6 +6,13 @@
 
 import fpw.news.UtenteFactory;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +25,28 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
+    
+    public void init()
+    {
+        try {
+            // si carica a run-time la classe del Driver
+            // tramite il nome del driver stesso
+            // N.B. la string dipende dal DBMS in uso
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            // viene sollevata questa eccezione nel caso
+            // non si riesca a caricare la classe specificata.
+            // Il DB in questo caso non sarà utilizzabile,
+            // potrebbe essere il caso di terminare l’applicazione
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Connessione con il database, driver caricato con successo
+        String db_connection = "jdbc:mysql://ec2-52-47-198-123.eu-west-3.compute.amazonaws.com:443/fpw18_sara";
+        
+        UtenteFactory.getInstance().setDb_str_connection(db_connection);
+        
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,7 +59,7 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+                   
             HttpSession session = request.getSession(false);
             
             
@@ -57,6 +86,7 @@ public class Login extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
                 UtenteFactory factory_utente = UtenteFactory.getInstance();
+                factory_utente.getAllUsers();
                 
                 if (email != null &&
                     password != null &&
