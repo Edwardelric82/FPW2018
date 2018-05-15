@@ -8,6 +8,10 @@
  * Created: 14-mag-2018
  */
 
+drop table utente;
+drop table notizia;
+drop table commenti;
+
 create table utente (
     id serial primary key,
     nome varchar(100),
@@ -22,16 +26,16 @@ create table notizia(
     titolo varchar(200) not null,
     content varchar(2000), 
     img varchar(100),
-    autore bigint unsigned references utente(id) on delete cascade
+    autore bigint unsigned references utente(id) on delete no action
                                                  on update cascade,
-    categoria integer
+    categoria varchar(30)
 );
 
 create table commenti(
     id serial primary key,
-    id_utente bigint unsigned references utente(id) on delete cascade 
+    id_utente bigint unsigned references utente(id) on delete no action 
                                                     on update cascade,
-    id_notizia bigint unsigned references notizia(id) on delete cascade 
+    id_notizia bigint unsigned references notizia(id) on delete no action 
                                                       on update cascade,
     titolo varchar(100) not null, 
     testo varchar(2000),

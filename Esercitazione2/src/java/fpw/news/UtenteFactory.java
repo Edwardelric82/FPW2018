@@ -7,6 +7,7 @@ package fpw.news;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,7 +70,7 @@ public class UtenteFactory {
     public Connection connect_db(){
         try
         {
-            Connection conn = DriverManager.getConnection(db_str_connection, "sara", "fpw18");
+            Connection conn = DriverManager.getConnection(getDb_str_connection(), "sara", "fpw18");
             return conn;
         }catch(SQLException ex)
         {
@@ -78,7 +79,7 @@ public class UtenteFactory {
         return null;
     }
 
-    public Utente getUtenteById(int idUser) {
+    public Utente getUtenteById(int idUser) {        
         for (Utente user : listaUtenti) {
             if (user.getId() == idUser) {
                 return user;
@@ -98,8 +99,8 @@ public class UtenteFactory {
     }
 
     public boolean login(String email, String password) {
-        //Cerca l'utente con email uguale a quella passata come parametro
-        for (Utente user : listaUtenti) {
+        //Cerca l'utente con email uguale a quella passata come parametro 
+        for(Utente user : listaUtenti) {
             //Cerca l'utente che abbia stessa email e stessa password
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return true;
@@ -108,7 +109,7 @@ public class UtenteFactory {
         return false;
     }
 
-    public ArrayList<Utente> getAllUsers() {  
+    public ArrayList<Utente> getAllUsers() {    
         return listaUtenti;
     }
 
@@ -118,12 +119,12 @@ public class UtenteFactory {
     public String getDb_str_connection() {
         return db_str_connection;
     }
-    
-    
-    public  void setDb_str_connection(String str)
-    {
-        db_str_connection = str;
-    }
-            
 
+    /**
+     * @param db_str_connection the db_str_connection to set
+     */
+    public void setDb_str_connection(String db_str_connection) {
+        this.db_str_connection = db_str_connection;
+    }
+    
 }

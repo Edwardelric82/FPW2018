@@ -6,11 +6,6 @@
 
 import fpw.news.UtenteFactory;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -86,7 +81,6 @@ public class Login extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
                 UtenteFactory factory_utente = UtenteFactory.getInstance();
-                factory_utente.getAllUsers();
                 
                 if (email != null &&
                     password != null &&
@@ -98,6 +92,8 @@ public class Login extends HttpServlet {
                     session.setAttribute("userId", userId);
                     session.setAttribute("loggedIn", true);
                     request.setAttribute("isLogged", true);
+                    
+                    System.out.println("Id->" + userId);
                     
                     request.getRequestDispatcher("User").forward(request, response);
                     return;

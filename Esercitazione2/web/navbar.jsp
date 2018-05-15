@@ -18,7 +18,7 @@
             <li><a href="Index">Home</a></li>
             <!-- Controlla se l'utente è loggato visualizza un menu differente a seconda che l'utnte sia loggato oppure no -->
             <c:if test="${isLogged == false}">
-                <li><a href="signup.html">Registrati</a></li>
+                <li><a href="Signup">Registrati</a></li>
                 <li><a href='Login'>Login</a></li>
             </c:if>
             <c:if test="${isLogged == true}">
