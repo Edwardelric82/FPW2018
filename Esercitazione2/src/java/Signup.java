@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import fpw.news.UtenteFactory;
 
 /**
  *
@@ -51,6 +52,11 @@ public class Signup extends HttpServlet {
            urlImgProfile != null)
         {
             System.out.println("Qui inserisce nuovo utente");
+            
+            UtenteFactory user_factory = UtenteFactory.getInstance();
+            //Chiama il metodo della factory per l'inserimento nel db di un nuovo utente
+            user_factory.insertUser(nome, cognome, email, psw, urlImgProfile);
+      
             
             request.getRequestDispatcher("login.jsp").forward(request,response);
         }

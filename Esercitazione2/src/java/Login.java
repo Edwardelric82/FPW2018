@@ -20,28 +20,6 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
-    
-    public void init()
-    {
-        try {
-            // si carica a run-time la classe del Driver
-            // tramite il nome del driver stesso
-            // N.B. la string dipende dal DBMS in uso
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            // viene sollevata questa eccezione nel caso
-            // non si riesca a caricare la classe specificata.
-            // Il DB in questo caso non sarà utilizzabile,
-            // potrebbe essere il caso di terminare l’applicazione
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //Connessione con il database, driver caricato con successo
-        String db_connection = "jdbc:mysql://ec2-52-47-198-123.eu-west-3.compute.amazonaws.com:443/fpw18_sara";
-        
-        UtenteFactory.getInstance().setDb_str_connection(db_connection);
-        
-    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -81,6 +59,7 @@ public class Login extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
                 UtenteFactory factory_utente = UtenteFactory.getInstance();
+                factory_utente.getUtenteByEmail("boi@gmail.com");
                 
                 if (email != null &&
                     password != null &&
