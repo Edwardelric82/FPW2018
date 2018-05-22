@@ -14,8 +14,8 @@ and open the template in the editor.
         <meta name="keywords" content="html, css, java, webapplication">
         <meta name="description" content="Images, tables and forms">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style1.css" media="screen">
-        
+        <link rel="stylesheet" type="text/css" href="style1.css" media="screen">    
+        <script src="my_script.js"></script> <!-- Inserisco il mio script javascript-->
     </head>
     <body>
         <jsp:include page="header.jsp" />
