@@ -5,7 +5,13 @@
  */
 package fpw.news;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -79,5 +85,48 @@ public class NotiziaFactory {
     public ArrayList<Notizia> getAllNews()
     {
         return listaNews;
+    }
+    
+    public ArrayList<Notizia> searchNewsByQueryStr(String query_str)
+    {
+        ArrayList<Notizia> lista_news = new ArrayList<Notizia>();
+        try
+        {
+            //Prevenire sql injection con i PreparedStatement
+            Connection conn = DbConnection.getInstance().getConnection();
+            String sql ="Select * from notizia where titolo like '%"+query_str+"%'";
+            System.out.println(sql);
+            Statement stmt = conn.createStatement();
+            ResultSet set = stmt.executeQuery(sql);
+            while(set.next())
+            {
+                int id = set.getInt("id");
+                String titolo = set.getString("titolo");
+                String content = set.getString("content");
+                String img = set.getString("img");
+                int id_autore = set.getInt("autore");
+                Utente u = UtenteFactory.getInstance().getUtenteById(id_autore);
+                String categoria = set.getString("categoria");
+                
+                Notizia news = new Notizia();
+                news.setId(id);
+                news.setAutore(u);
+                news.setCategoria(categoria);
+                news.setImg(img);
+                news.setTitolo(titolo);
+                news.setContent(content);
+                
+                lista_news.add(news);           
+            }
+            
+            stmt.close();
+            conn.close();
+        }catch(SQLException e)
+        {
+            // nel caso la query fallisca (p.e. errori di sintassi)
+            // viene sollevata una SQLException
+            Logger.getLogger(UtenteFactory.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return lista_news;
     }
 }

@@ -9,4 +9,6 @@
 <header>
     <img  id="logo" title="logo" alt="logo del sito" src="images/logo.jpeg">
     <h1 id="maintitle">News dal mondo!</h1>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/search_script.js"></script>
 </header>

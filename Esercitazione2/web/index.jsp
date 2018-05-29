@@ -47,10 +47,10 @@ and open the template in the editor.
                 <li>Politica</li>
             </ol>
         </div>
-        <div class="main-box">
+        <div class="main-box" id="newsList">
               <c:forEach var="news" items="${listaNews}">
                   <div>
-                      <h3>${news.getTitolo()}</h3>
+                      <h3 id="id-${news.getId()}">${news.getTitolo()}</h3>
                       <p>${news.getContent()}</p>
                       <h5>${news.getCategoria()}</h5>
                   </div>
